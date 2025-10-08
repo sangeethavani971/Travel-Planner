@@ -1,4 +1,4 @@
-Travel Planner (demo)
+Travel Planner
 
 Files:
 - travel_planner.py: Simple travel itinerary generator and a runnable example.
@@ -20,3 +20,4 @@ Run the Flask UI (development server):
 ```powershell
 python -m venv .venv; .\.venv\Scripts\Activate.ps1; pip install -r requirements.txt; python app.py
 ```
+
