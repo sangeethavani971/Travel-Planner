@@ -1,2 +1,22 @@
-# Travel-Planner
-The Student Travel Planner, built using AI Cloud Studio with Gemini Pro, is an AI-based tool that creates personalized, budget-friendly itineraries for students. It analyzes user inputs like destination, budget, and interests to generate optimized day-by-day travel plans through a smart and user-friendly interface.
+Travel Planner (demo)
+
+Files:
+- travel_planner.py: Simple travel itinerary generator and a runnable example.
+- test_travel_planner.py: Small unittest suite.
+
+Run the example script:
+
+```powershell
+python .\travel_planner.py
+```
+
+Run tests:
+
+```powershell
+python -m unittest test_travel_planner.py
+```
+Run the Flask UI (development server):
+
+```powershell
+python -m venv .venv; .\.venv\Scripts\Activate.ps1; pip install -r requirements.txt; python app.py
+```

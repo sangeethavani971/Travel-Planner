@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Travel Planner for Students</title>
+    <link rel="stylesheet" href="/static/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script defer src="/static/script.js"></script>
+</head>
+<body>
+    <!-- ...existing HTML content simplified for brevity... -->
+    <header class="hero-section">
+        <div class="hero-content">
+            <h1>Your Personalized Adventure Starts Here.</h1>
+            <p>Plan efficient, budget-friendly, and enjoyable trips around India.</p>
+            <button class="btn primary-btn" onclick="scrollToForm()">Plan Your Trip</button>
+        </div>
+    </header>
+
+    <main>
+        <section id="trip-planning-form" class="form-container curve-box">
+            <h2>Let's Plan Your Adventure!</h2>
+            <form id="travelForm">
+                <div class="input-group">
+                    <label for="destination">Destination Topic:</label>
+                    <select id="destination" required class="curve-input">
+                        <option value="">Select a region/country</option>
+                        <option value="Nepal">Nepal</option>
+                        <option value="Sri Lanka">Sri Lanka</option>
+                        <option value="Bhutan">Bhutan</option>
+                        <option value="Thailand">Thailand</option>
+                    </select>
+                </div>
+
+                <div class="input-group">
+                    <label for="startDate">Start Date (Optional):</label>
+                    <input type="date" id="startDate" class="curve-input">
+                    <i class="fas fa-calendar-alt icon-after-input"></i>
+                </div>
+
+                <div class="input-group">
+                    <label for="duration">Duration (Days):</label>
+                    <div class="number-input-group">
+                        <button type="button" class="number-btn curve-btn" onclick="changeDuration(-1)">-</button>
+                        <input type="number" id="duration" value="7" min="1" required class="curve-input small-input">
+                        <button type="button" class="number-btn curve-btn" onclick="changeDuration(1)">+</button>
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <label>Budget Level:</label>
+                    <div class="radio-group">
+                        <label class="radio-container curve-radio">Low
+                            <input type="radio" name="budget" value="low" checked>
+                        </label>
+                        <label class="radio-container curve-radio">Medium
+                            <input type="radio" name="budget" value="medium">
+                        </label>
+                        <label class="radio-container curve-radio">High
+                            <input type="radio" name="budget" value="high">
+                        </label>
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <label>Preferred Transport:</label>
+                    <div class="checkbox-group">
+                        <label class="checkbox-container curve-checkbox">Bus
+                            <input type="checkbox" name="transport" value="Bus">
+                        </label>
+                        <label class="checkbox-container curve-checkbox">Car
+                            <input type="checkbox" name="transport" value="Car">
+                        </label>
+                        <label class="checkbox-container curve-checkbox">Train
+                            <input type="checkbox" name="transport" value="Train">
+                        </label>
+                        <label class="checkbox-container curve-checkbox">Flight
+                            <input type="checkbox" name="transport" value="Flight">
+                        </label>
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <label>Preferred Stay:</label>
+                    <div class="checkbox-group">
+                        <label class="checkbox-container curve-checkbox">Hotel
+                            <input type="checkbox" name="stay" value="Hotel">
+                        </label>
+                        <label class="checkbox-container curve-checkbox">House
+                            <input type="checkbox" name="stay" value="House">
+                        </label>
+                        <label class="checkbox-container curve-checkbox">Lodge
+                            <input type="checkbox" name="stay" value="Lodge">
+                        </label>
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <label>Interests (select all that apply):</label>
+                    <div class="checkbox-group interests-group">
+                        <label class="checkbox-container curve-checkbox interest-tag">Food
+                            <input type="checkbox" name="interest" value="Food">
+                        </label>
+                        <label class="checkbox-container curve-checkbox interest-tag">Travel
+                            <input type="checkbox" name="interest" value="Travel">
+                        </label>
+                        <label class="checkbox-container curve-checkbox interest-tag">Monuments
+                            <input type="checkbox" name="interest" value="Monuments">
+                        </label>
+                        <label class="checkbox-container curve-checkbox interest-tag">Adventure
+                            <input type="checkbox" name="interest" value="Adventure">
+                        </label>
+                        <label class="checkbox-container curve-checkbox interest-tag">Nature
+                            <input type="checkbox" name="interest" value="Nature">
+                        </label>
+                        <label class="checkbox-container curve-checkbox interest-tag">Culture
+                            <input type="checkbox" name="interest" value="Culture">
+                        </label>
+                        <label class="checkbox-container curve-checkbox interest-tag">Shopping
+                            <input type="checkbox" name="interest" value="Shopping">
+                        </label>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn generate-btn curve-btn">Generate Itinerary</button>
+            </form>
+        </section>
+
+        <section id="itinerary-display" class="itinerary-container" style="display: none;">
+            <h2 class="itinerary-title">Your Trip to <span id="itineraryDestination"></span>!</h2>
+
+            <div class="overview-box curve-box">
+                <h3>Trip Summary</h3>
+                <p><strong>Dates:</strong> <span id="summaryDates"></span></p>
+                <p><strong>Duration:</strong> <span id="summaryDuration"></span></p>
+                <p><strong>Budget Level:</strong> <span id="summaryBudget"></span></p>
+                <p><strong>Estimated Total Cost:</strong> <span id="summaryTotalCost"></span></p>
+                <p><strong>Transport:</strong> <span id="summaryTransport"></span></p>
+                <p><strong>Stay:</strong> <span id="summaryStay"></span></p>
+                <p><strong>Interests:</strong> <span id="summaryInterests"></span></p>
+            </div>
+
+            <div id="day-by-day-itinerary"></div>
+
+            <div class="map-box curve-box">
+                <h3>Map Overview</h3>
+                <p>Map integration would go here, showing POIs and routes.</p>
+                <div id="interactive-map" style="height: 300px; background-color: #e0e0e0; border-radius: 15px;"></div>
+            </div>
+
+            <div class="budget-summary-box curve-box">
+                <h3>Budget Breakdown</h3>
+                <canvas id="budgetChart"></canvas>
+            </div>
+
+            <div class="itinerary-actions">
+                <button class="btn secondary-btn curve-btn" onclick="document.getElementById('itinerary-display').style.display = 'none'; document.getElementById('trip-planning-form').style.display = 'block';">Refine Trip</button>
+                <button class="btn primary-btn curve-btn">Book Now (Coming Soon!)</button>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 AI Travel Planner. All rights reserved.</p>
+    </footer>
+</body>
+</html>
